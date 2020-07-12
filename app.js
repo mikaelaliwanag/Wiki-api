@@ -32,6 +32,7 @@ app.route("/articles")
         }
         
     });
+
 })
 
 .post(function(req, res) {
@@ -47,10 +48,12 @@ app.route("/articles")
         } else {
             res.send(err);
         }
+
     });
 })
 
 .delete(function(req, res) {
+
     Article.deleteMany(function(err){
         if(!err) {
             res.send("Successfully deleted all articles.")
@@ -58,6 +61,7 @@ app.route("/articles")
             res.send(err);
         }
     });
+
 });
 
 //////////Requests for a SPECIFIC articles///////
@@ -103,8 +107,21 @@ app.route("/articles/:articleTitle")
         }
     );
 
-});
+})
 
+.delete(function(req, res) {
+
+    Article.deleteOne(
+        {title: req.params.articleTitle},
+        function(err) {
+            if(!err) {
+                res.send("Successfully deleted article");
+            } else {
+                res.send(err);
+            }    
+    });
+
+});
 
 
 
